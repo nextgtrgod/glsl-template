@@ -1,5 +1,17 @@
 
 body {
 	margin: 0;
+	background-color: #111;
 	overflow: hidden;
+}
+
+canvas {
+	opacity: 0;
+	animation: fade-in .4s forwards;
+}
+
+@keyframes fade-in {
+	to {
+		opacity: 1;
+	}
 }
