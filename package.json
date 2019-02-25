@@ -1,0 +1,11 @@
+{
+  "name": "shader-habr-1",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "devDependencies": {
+    "cssnano": "^4.1.10",
+    "glslify-bundle": "^5.1.1",
+    "glslify-deps": "^1.3.1"
+  }
+}
