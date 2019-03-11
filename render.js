@@ -9,7 +9,9 @@ export default class Render {
 		this.textures = textures
 
 		this.canvas = document.getElementById(id)
+	}
 
+	init() {
 		if (!this.canvas) {
 			this.canvas = document.createElement('canvas')
 			this.canvas.id = 'canvas'
@@ -28,12 +30,8 @@ export default class Render {
 		}
 		window.onmousemove = getMousePos
 
-		this.init()
-	}
-
-	init() {
 		// this.clearCanvas()
-		this.setSize()
+		// this.setSize()
 		this.createPlane()
 		this.createProgram()
 

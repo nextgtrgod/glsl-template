@@ -9,3 +9,4 @@ const render = new Render({
 	// 	'image1': require('./images/2.jpg'),
 	// },
 })
+render.init()
