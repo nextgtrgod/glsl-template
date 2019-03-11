@@ -20,7 +20,7 @@ export default class Render {
 		this.program = null
 
 		this.setSize()
-		window.onresize = this.setSize
+		window.onresize = () => this.setSize()
 
 		this.mouse = {
 			x: this.w / 2,
@@ -51,7 +51,7 @@ export default class Render {
 		this.canvas.width = this.w
 		this.canvas.height = this.h
 
-		this.gl.viewport(0, 0, this.gl.canvas.width, this.gl.canvas.height)
+		this.gl.viewport(0, 0, this.gl.drawingBufferWidth, this.gl.drawingBufferHeight)
 	}
 
 	clearCanvas() {
