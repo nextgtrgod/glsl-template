@@ -6,6 +6,8 @@ body {
 }
 
 canvas {
+	position: fixed;
+	width: 100%;
 	opacity: 0;
 	animation: fade-in .4s forwards;
 }
@@ -14,4 +16,13 @@ canvas {
 	to {
 		opacity: 1;
 	}
+}
+
+div {
+	position: relative;
+	font-family: 'Courier New';
+	font-size: 16px;
+	line-height: 1;
+	color: #FFF;
+	z-index: 1;
 }

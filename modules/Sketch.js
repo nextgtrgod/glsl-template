@@ -1,14 +1,17 @@
 
-import getMousePos from './utils/getMousePos'
+import getMousePos from '../utils/getMousePos'
 
-export default class Render {
-	constructor({ id, vertex, fragment, textures = {} }) {
+export default class Sketch {
+	constructor({ id, dpi = window.devicePixelRatio, vertex, fragment, textures = {} }) {
 
+		this.dpi = dpi
 		this.vertex = vertex
 		this.fragment = fragment
 		this.textures = textures
 
 		this.canvas = document.getElementById(id)
+
+		this.init()
 	}
 
 	init() {
@@ -28,7 +31,10 @@ export default class Render {
 			x: this.w / 2,
 			y: this.h / 2,
 		}
-		window.onmousemove = getMousePos
+		document.addEventListener('mousemove', ({ clientX, clientY }) => {
+			this.mouse.x = clientX
+			this.mouse.y = clientY
+		})
 
 		// this.clearCanvas()
 		// this.setSize()
@@ -43,8 +49,8 @@ export default class Render {
 	}
 
 	setSize() {
-		this.w = window.innerWidth
-		this.h = window.innerHeight
+		this.w = window.innerWidth * this.dpi
+		this.h = window.innerHeight * this.dpi
 
 		this.canvas.width = this.w
 		this.canvas.height = this.h
@@ -139,10 +145,12 @@ export default class Render {
 		image.src = src
 	}
 	
-	draw(timeStamp) {
-		this.gl.uniform1f(this.gl.getUniformLocation(this.program, 'time'), timeStamp / 1000.0)
-		this.gl.uniform2fv(this.gl.getUniformLocation(this.program, 'resolution'), [ this.w, this.h ])
-		this.gl.uniform2fv(this.gl.getUniformLocation(this.program, 'mouse'), [ this.mouse.x, this.mouse.y ])
+	draw = (timeStamp) => {
+		requestAnimationFrame(this.draw)
+
+		this.gl.uniform1f(this.gl.getUniformLocation(this.program, 'u_time'), timeStamp / 1000.0)
+		this.gl.uniform2fv(this.gl.getUniformLocation(this.program, 'u_resolution'), [ this.w, this.h ])
+		this.gl.uniform2fv(this.gl.getUniformLocation(this.program, 'u_mouse'), [ this.mouse.x, this.mouse.y ])
 
 		// send textures to fragment shader
 		Object.keys(this.textures).map((key, i) => {
@@ -150,7 +158,5 @@ export default class Render {
 		})
 	
 		this.gl.drawArrays(this.gl.TRIANGLE_STRIP, 0, 4)
-	
-		requestAnimationFrame(t => this.draw(t))
 	}
 }
