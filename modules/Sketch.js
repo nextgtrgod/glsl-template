@@ -21,7 +21,7 @@ export default class Sketch {
 			document.body.appendChild(this.canvas)
 		}
 
-		this.gl = canvas.getContext('webgl')
+		this.gl = this.canvas.getContext('webgl')
 		this.program = null
 
 		this.setSize()

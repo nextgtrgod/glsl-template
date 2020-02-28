@@ -19,6 +19,14 @@ float n_cos(float a) {
 void main() {
 	vec2 uv = gl_FragCoord.xy / u_resolution.xy;
 
+	// uv = uv*uv * (3. - 2.*uv);
+
+	uv.x = sin(PI*(uv.x - 0.5)) / 2. + .5;
+	uv.y = sin(PI*(uv.y - 0.5)) / 2. + .5;
+	
+
+	// uv.x = pow(uv.x, 4.0);
+
 	float pct = 0.0;
 
 	float r = (1.0+n_sin(u_time)) / 6.0;
@@ -41,5 +49,5 @@ void main() {
 
 	vec3 color = (1.0 - vec3(step(r, pct))) * normalize(vec3(255., 127., 63.));
 
-	gl_FragColor = vec4(color, 1.0);
+	gl_FragColor = texture2D(image0, uv);
 }
